@@ -2,6 +2,7 @@ let profile = document.querySelector('.profile');
 let popup = document.querySelector('.popup');
 
 let editButton = profile.querySelector('.profile__button-edit');
+let addButton = profile.querySelector('.profile__button-add');
 let closeButton = popup.querySelector('.popup__button-close');
 let submitButton = popup.querySelector('.popup__button');
 
@@ -14,6 +15,7 @@ let subtitle = profile.querySelector('.profile__subtitle');
 editButton.addEventListener('click', formLoad);
 closeButton.addEventListener('click', formClose);
 submitButton.addEventListener('click', formSubmitHandler);
+addButton.addEventListener('click', formAddLoad);
 
 function formLoad() {
   name.value = title.textContent;
@@ -35,4 +37,8 @@ function formSubmitHandler(evt) {
   subtitle.textContent = descr.value;
 
   popup.classList.remove('popup_opened');
+}
+
+function formAddLoad() {
+  popup.classList.add('popup_opened');
 }
