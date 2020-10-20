@@ -45,7 +45,11 @@
               </div>
             </li>
             <li class="elements__item">
-              <img class="elements__image" src="./images/elcarito.jpg" alt="Туманная дымка над горной грядой." />
+              <img
+                class="elements__image"
+                src="./images/elcarito.jpg"
+                alt="Туманная дымка над горной грядой."
+              />
               <div class="elements__row">
                 <p class="elements__name">Утро в горах</p>
                 <div class="elements__like"></div>
@@ -63,7 +67,11 @@
               </div>
             </li>
             <li class="elements__item">
-              <img class="elements__image" src="./images/peter-luo.jpg" alt="Водная гладь озера, вдали берег, лес и горы." />
+              <img
+                class="elements__image"
+                src="./images/peter-luo.jpg"
+                alt="Водная гладь озера, вдали берег, лес и горы."
+              />
               <div class="elements__row">
                 <p class="elements__name">Озеро Байкал</p>
                 <div class="elements__like"></div>
@@ -93,7 +101,6 @@
             </li>
           </ul>
         </section>
-
       </main>
       <footer class="footer page__footer">
         <p class="footer__author">&copy; 2020 Mesto Russia</p>
@@ -111,7 +118,7 @@
                 name="name"
                 placeholder="Введите имя"
                 required
-                value="Жак-Ив Кусто"
+                value=""
               />
               <input
                 type="text"
@@ -119,28 +126,32 @@
                 name="descr"
                 placeholder="Введите описание"
                 required
-                value="Исследователь океана"
+                value=""
               />
             </fieldset>
             <fieldset class="popup__button-container">
-              <button type="submit" class="button popup__button button_theme_dark">Сохранить</button>
+              <button
+                type="submit"
+                class="button popup__button button_theme_dark"
+              >
+                Сохранить
+              </button>
             </fieldset>
           </form>
         </div>
-
       </section>
 
       <section class="form-card-add">
         <div class="form-card-add__form">
           <button class="button form-card-add__button-close"></button>
           <form class="form-card-add__container">
-            <h2 class="form-card-add__title">Редактировать профиль</h2>
+            <h2 class="form-card-add__title">Новое место</h2>
             <fieldset class="form-card-add__input-container">
               <input
                 type="text"
                 class="input form-card-add__input-name"
                 name="name"
-                placeholder="Введите имя"
+                placeholder="Название"
                 required
                 value=""
               />
@@ -148,20 +159,23 @@
                 type="text"
                 class="input form-card-add__input-descr"
                 name="descr"
-                placeholder="Введите описание"
+                placeholder="Ссылка на картинку"
                 required
                 value=""
               />
             </fieldset>
             <fieldset class="form-card-add__button-container">
-              <button type="submit" class="button form-card-add__button button_theme_dark">Сохранить</button>
+              <button
+                type="submit"
+                class="button form-card-add__button button_theme_dark"
+              >
+                Сохранить
+              </button>
             </fieldset>
           </form>
         </div>
-
       </section>
     </div>
-
   </body>
-  <script src="./script/index.js"></script>
+  <script src="./pages/index.js"></script>
 </html>
