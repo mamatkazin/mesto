@@ -1,0 +1,9 @@
+.content {
+  margin: 0 auto 50px;
+}
+
+@media all and (min-width: 768px) {
+  .content {
+    margin: 0 auto 66px;
+  }
+}

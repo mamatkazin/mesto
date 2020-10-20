@@ -1,0 +1,9 @@
+.page__header {
+  margin: 0 auto 42px;
+}
+
+@media all and (min-width: 768px) {
+  .page__header {
+    margin: 0 auto 40px;
+  }
+}

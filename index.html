@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Путешествия по России</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
+  <body class="body">
+    <div class="page">
+      <header class="header page__header">
+        <img class="logo header__logo" src="./images/logo.png" alt="Логотип" />
+      </header>
+      <main class="content">
+        <section class="profile content__profile">
+          <img
+            src="./images/kusto.jpg"
+            alt="Жак-Ив Кусто"
+            class="profile__image"
+          />
+          <div class="profile__cell">
+            <div class="profile__row-title">
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <button
+                type="submit"
+                class="button profile__button-edit"
+              ></button>
+            </div>
+            <p class="profile__subtitle">Исследователь океана</p>
+          </div>
+          <button type="submit" class="button profile__button-add"></button>
+        </section>
+
+        <section class="elements content__elements">
+          <ul class="elements__list">
+            <li class="elements__item">
+              <img
+                class="elements__image"
+                src="./images/daniel-sessler.jpg"
+                alt="Синее небо, белое облако скрыто скалистой горой."
+              />
+              <div class="elements__row">
+                <p class="elements__name">Гора Эльбрус</p>
+                <div class="elements__like"></div>
+              </div>
+            </li>
+            <li class="elements__item">
+              <img class="elements__image" src="./images/elcarito.jpg" alt="Туманная дымка над горной грядой." />
+              <div class="elements__row">
+                <p class="elements__name">Утро в горах</p>
+                <div class="elements__like"></div>
+              </div>
+            </li>
+            <li class="elements__item">
+              <img
+                class="elements__image"
+                src="./images/ines-alvarez.jpg"
+                alt="Ярко зеленный лес, по середине высокий водопад."
+              />
+              <div class="elements__row">
+                <p class="elements__name">Изумрудный водопад</p>
+                <div class="elements__like"></div>
+              </div>
+            </li>
+            <li class="elements__item">
+              <img class="elements__image" src="./images/peter-luo.jpg" alt="Водная гладь озера, вдали берег, лес и горы." />
+              <div class="elements__row">
+                <p class="elements__name">Озеро Байкал</p>
+                <div class="elements__like"></div>
+              </div>
+            </li>
+            <li class="elements__item">
+              <img
+                class="elements__image"
+                src="./images/tim-peterson.jpg"
+                alt="Слева коричневая скала, справа деревья, между ними горная река."
+              />
+              <div class="elements__row">
+                <p class="elements__name">Неизведанный Крым</p>
+                <div class="elements__like"></div>
+              </div>
+            </li>
+            <li class="elements__item">
+              <img
+                class="elements__image"
+                src="./images/willian-justen.jpg"
+                alt="Заснеженная скала на фоне солнечного утра."
+              />
+              <div class="elements__row">
+                <p class="elements__name">Зимний Дамбай</p>
+                <div class="elements__like"></div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        
+      </main>
+      <footer class="footer page__footer">
+        <p class="footer__author">&copy; 2020 Mesto Russia</p>
+      </footer>
+
+      <section class="popup">
+        <div class="popup__form">
+          <button class="button popup__button-close"></button>
+          <form class="popup__container">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <fieldset class="popup__input-container">
+              <input
+                type="text"
+                class="input popup__input-name"
+                name="name"
+                placeholder="Введите имя"
+                required
+                value="Жак-Ив Кусто"
+              />
+              <input
+                type="text"
+                class="input popup__input-descr"
+                name="descr"
+                placeholder="Введите описание"
+                required
+                value="Исследователь океана"
+              />
+            </fieldset>
+            <fieldset class="popup__button-container">
+              <button type="submit" class="button popup__button button_theme_dark">Сохранить</button>
+            </fieldset>
+          </form>
+        </div>
+        
+      </section>
+    </div>
+    
+  </body>
+  <script src="./script/index.js"></script>
+</html>

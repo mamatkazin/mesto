@@ -1,0 +1,12 @@
+.profile__row-title {
+  display: flex;
+  margin: 0 0 9px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media all and (min-width: 768px) {
+  .profile__row-title {
+    justify-content: start;
+  }
+}
