@@ -106,7 +106,7 @@
         <p class="footer__author">&copy; 2020 Mesto Russia</p>
       </footer>
 
-      <section class="popup">
+      <section class="popup page__popup-edit">
         <div class="popup__form">
           <button class="button popup__button-close"></button>
           <form class="popup__container">
@@ -141,15 +141,15 @@
         </div>
       </section>
 
-      <section class="form-card-add">
-        <div class="form-card-add__form">
-          <button class="button form-card-add__button-close"></button>
-          <form class="form-card-add__container">
-            <h2 class="form-card-add__title">Новое место</h2>
-            <fieldset class="form-card-add__input-container">
+      <section class="popup page__popup-add">
+        <div class="popup__form">
+          <button class="button popup__button-close"></button>
+          <form class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <fieldset class="popup__input-container">
               <input
                 type="text"
-                class="input form-card-add__input-name"
+                class="input popup__input-name"
                 name="name"
                 placeholder="Название"
                 required
@@ -157,17 +157,17 @@
               />
               <input
                 type="text"
-                class="input form-card-add__input-descr"
+                class="input popup__input-descr"
                 name="descr"
                 placeholder="Ссылка на картинку"
                 required
                 value=""
               />
             </fieldset>
-            <fieldset class="form-card-add__button-container">
+            <fieldset class="popup__button-container">
               <button
                 type="submit"
-                class="button form-card-add__button button_theme_dark"
+                class="button popup__button button_theme_dark"
               >
                 Сохранить
               </button>
@@ -177,5 +177,5 @@
       </section>
     </div>
   </body>
-  <script src="./pages/index.js"></script>
+  <script src="./pages/index1.js"></script>
 </html>
