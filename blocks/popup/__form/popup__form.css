@@ -1,4 +1,17 @@
 .popup__form {
-  max-width: 522px;
-  margin: 0 auto;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: 0;
+  transform: translate(0, -50%);
+}
+
+@media all and (min-width: 768px) {
+  .popup__form {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 33px 36px 36px;
+    top: 50%;
+    left: calc(50% + 22px);
+    transform: translate(-50%, -50%);
+  }
 }
