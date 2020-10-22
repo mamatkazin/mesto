@@ -11,10 +11,6 @@ let descr = popup.querySelector('.popup__input-descr');
 let title = profile.querySelector('.profile__title');
 let subtitle = profile.querySelector('.profile__subtitle');
 
-editButton.addEventListener('click', formLoad);
-closeButtonPopup.addEventListener('click', formClose);
-submitButtonPopup.addEventListener('click', formSubmit);
-
 function formLoad() {
   name.value = title.textContent;
   descr.value = subtitle.textContent;
@@ -27,10 +23,14 @@ function formClose() {
 }
 
 function formSubmit(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault();
 
   title.textContent = name.value;
   subtitle.textContent = descr.value;
 
-  popup.classList.remove('popup_opened');
+  formClose();
 }
+
+editButton.addEventListener('click', formLoad);
+closeButtonPopup.addEventListener('click', formClose);
+submitButtonPopup.addEventListener('click', formSubmit);
