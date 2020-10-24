@@ -1,4 +1,15 @@
 .popup__form {
-  max-width: 522px;
-  margin: 0 auto;
+  position: relative;
+  width: 74%;
+  max-width: 360px;
+  padding: 26px 22px;
+  background: #ffffff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+@media all and (min-width: 768px) {
+  .popup__form {
+    padding: 33px 36px 36px;
+  }
 }
