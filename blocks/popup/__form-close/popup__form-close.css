@@ -1,0 +1,12 @@
+.popup__form-close {
+  position: absolute;
+  top: -43px;
+  right: 6px;
+}
+
+@media all and (min-width: 768px) {
+  .popup__form-close {
+    top: -37px;
+    right: -32px;
+  }
+}
