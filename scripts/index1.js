@@ -9,6 +9,7 @@ const submitButtonAdd = document.querySelector(".popup_type-form_add");
 const submitButtonEdit = document.querySelector(".popup_type-form_edit");
 
 const elements = document.querySelector(".elements");
+const list = elements.querySelector(".elements__list");
 const likeButtons = elements.querySelectorAll(".button-like");
 const deleteButtons = elements.querySelectorAll(".button-delete");
 const images = elements.querySelectorAll(".elements__image");
@@ -42,7 +43,10 @@ let initialCards = [
   }
 ];
 
-// initialCards.forEach();
+initialCards.forEach(card => {
+  var li = document.createElement("li");
+  li.className = 'elements__item';
+});
 
 function activationFormElements(className) {
   let p = document.querySelector(className);
