@@ -1,0 +1,9 @@
+.popup__button_type_add {
+  height: 40px;
+}
+
+@media all and (min-width: 768px) {
+  .popup__button_type_add {
+    height: 50.15px;
+  }
+}

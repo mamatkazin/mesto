@@ -2,11 +2,8 @@
   border: 0;
   width: 100%;
   box-sizing: border-box;
-  border-bottom: 1px solid #bcbcc4;
-  margin: 0 0 29px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0 0 9px 0;
-  font-size: 14px;
-  line-height: 17px;
   outline: 0;
   outline-offset: 0;
 }

@@ -1,0 +1,9 @@
+.popup__title_type_add {
+  margin: 0 0 27px;
+}
+
+@media all and (min-width: 768px) {
+  .popup__title_type_add {
+    margin: 0 0 47px;
+  }
+}

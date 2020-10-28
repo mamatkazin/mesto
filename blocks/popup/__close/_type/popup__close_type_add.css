@@ -1,0 +1,12 @@
+.popup__close_type_add {
+  top: -25px;
+  right: -24px;
+}
+
+@media all and (min-width: 768px) {
+  .popup__close_type_add {
+    top: -35px;
+    right: -33px;
+
+  }
+}

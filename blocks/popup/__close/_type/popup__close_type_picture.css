@@ -1,0 +1,11 @@
+.popup__close_type_picture {
+  top: -27px;
+  right: -27px;
+}
+
+@media all and (min-width: 768px) {
+  .popup__close_type_picture {
+    top: -37px;
+    right: -38px;
+  }
+}

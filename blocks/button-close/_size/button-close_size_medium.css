@@ -1,0 +1,11 @@
+.button-close_size_medium {
+  width: 24px;
+  height: 24px;
+}
+
+@media all and (min-width: 768px) {
+  .button-close_size_medium {
+    width: 32px;
+    height: 32px;
+  }
+}
