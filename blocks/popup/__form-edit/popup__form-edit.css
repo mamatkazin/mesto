@@ -10,8 +10,8 @@
 
 @media all and (min-width: 768px) {
   .popup__form-edit {
-    /* padding: 33px 36px 36px; */
-    padding: 33px 36px 0;
-    height: 41vh;
+    padding: 34px 36px 37px;
+    max-width: 358px;
+    max-height: 330px;
   }
 }

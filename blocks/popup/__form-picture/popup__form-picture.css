@@ -1,11 +1,11 @@
 .popup__form-picture {
   position: relative;
-  max-width: 75vw;
-  max-height: 52vh;
+  /* max-width: 75vw;
+  max-height: 52vh; */
 }
-
+/* 
 @media all and (min-width: 768px) {
   .popup__form-picture {
     max-height: 75vh;
   }
-}
+} */

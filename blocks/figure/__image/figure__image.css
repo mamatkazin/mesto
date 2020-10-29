@@ -1,6 +1,10 @@
 .figure__image {
-  max-width: 75vw;
-  max-height: 75vh;
+  /* max-width: 75vw;
+  max-height: 75vh; */
+
   object-fit: contain;
   margin-bottom: 7px;
+  max-width: 75vw;
+  max-height: 75vh;
+  display: block;
 }
