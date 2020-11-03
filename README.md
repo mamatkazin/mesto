@@ -1,4 +1,4 @@
-# Проект 4: Место
+# Проект 5: Место
 
 ### Обзор
 
@@ -26,11 +26,11 @@
 - Grid
 - Media запросы
 - Метод addEventListener
-- Замена DOM узлов
+- Создание, замена и удаление DOM узлов
 
 **Figma**
 
-- [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+- [Ссылка на макет в Figma](https://www.figma.com/file/nlYpT4VhFiwimn2YlncrcF/JavaScript.-Sprint-5?node-id=14975%3A2)
 
 **Проект**
 

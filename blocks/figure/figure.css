@@ -1,5 +1,11 @@
 .figure {
   margin: 0;
   max-width: 75vw;
-  max-height: 75vh;
+  max-height: 52vh;
+}
+
+@media all and (min-width: 768px) {
+  .figure {
+    max-height: 75vh;
+  }
 }
