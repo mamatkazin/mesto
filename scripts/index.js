@@ -10,6 +10,23 @@ function getInputBlock(){
 }
 
 // Блок функций, обслуживающих карточку ---------------------------------------
+function closeForm(e) {
+  const popup = e.target.closest('.popup_opened') || document.querySelector('.popup_opened');
+  popup.classList.remove('popup_opened');
+}
+
+function pressEsc(e) {
+  if (!e.target.classList.contains('input') && (e.code === 'Escape')) {
+    closeForm(e);
+  }
+}
+
+function clickOverlay(e) {
+  if (!e.target.closest('.popup__form')) {
+    closeForm(e);
+  }
+}
+
 function liked() {
   this.classList.toggle('button-like_liked');
 }
@@ -56,10 +73,6 @@ function loadFormPicture(e) {
 }
 
 // Блок отправки данных -------------------------------------------------------
-function closeForm(e) {
-  e.currentTarget.closest('.popup').classList.remove('popup_opened');
-}
-
 function submitFormAdd(e) {
   e.preventDefault();
 
@@ -161,6 +174,14 @@ const submitButtonEdit = document.querySelector('.popup_type-form_edit');
 submitButtonEdit.addEventListener('submit', submitFormEdit);
 
 const closeButtons = document.querySelectorAll('.button-close');
-closeButtons.forEach((b) => {
-  b.addEventListener('click', closeForm);
+closeButtons.forEach(button => {
+  button.addEventListener('click', closeForm);
 });
+
+const popups = document.querySelectorAll('.popup');
+popups.forEach(popup => {
+  popup.addEventListener('click', clickOverlay);
+});
+
+const body = document.querySelector('.body');
+body.addEventListener('keyup', pressEsc);
