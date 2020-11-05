@@ -31,11 +31,12 @@
 
 @import url('../blocks/elements/elements.css');
 @import url('../blocks/elements/__list/elements__list.css');
-@import url('../blocks/elements/__item/elements__item.css');
-@import url('../blocks/elements/__delete/elements__delete.css');
-@import url('../blocks/elements/__image/elements__image.css');
-@import url('../blocks/elements/__row/elements__row.css');
-@import url('../blocks/elements/__name/elements__name.css');
+
+@import url('../blocks/card/card.css');
+@import url('../blocks/card/__delete/card__delete.css');
+@import url('../blocks/card/__image/card__image.css');
+@import url('../blocks/card/__row/card__row.css');
+@import url('../blocks/card/__name/card__name.css');
 
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__author/footer__author.css');

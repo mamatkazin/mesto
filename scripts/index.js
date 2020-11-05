@@ -32,7 +32,7 @@ function liked() {
 }
 
 function deleted() {
-  this.closest('.elements__item').remove();
+  this.closest('.card').remove();
 }
 
 // Блок загрузки форм ---------------------------------------------------------
@@ -65,8 +65,8 @@ function loadFormPicture(e) {
   image.setAttribute('src', e.currentTarget.getAttribute('src'));
 
   const sourceCaption = e.currentTarget
-    .closest('.elements__item')
-    .querySelector('.elements__name');
+    .closest('.card')
+    .querySelector('.card__name');
 
   const targetCaption = document.querySelector('.popup_opened .figure__caption');
   targetCaption.textContent = sourceCaption.textContent;
@@ -139,12 +139,12 @@ function createCard(name, link, direction) {
   
   const newCard = tempCard.cloneNode(true);
 
-  const img = newCard.querySelector('.elements__image');
+  const img = newCard.querySelector('.card__image');
   img.src = link;
   img.alt = name;
   img.addEventListener('click', loadFormPicture);
 
-  newCard.querySelector('.elements__name').textContent = name;
+  newCard.querySelector('.card__name').textContent = name;
   newCard.querySelector('.button-like').addEventListener('click', liked);
   newCard.querySelector('.button-delete').addEventListener('click', deleted);
 
