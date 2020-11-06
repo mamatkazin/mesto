@@ -54,8 +54,8 @@ function loadFormAdd() {
 function loadFormPicture(e) {
   openPopup(globalPopupPicture);
   
-  globalImage.setAttribute('src', e.target.getAttribute('src'));
-  globalImage.setAttribute('alt', e.target.getAttribute('alt'));
+  globalImage.src = e.target.src;
+  globalImage.alt = e.target.alt;
 
   const sourceCaption = e.target
     .closest('.card')
