@@ -1,9 +1,4 @@
 .popup__input-container_type_edit {
-  margin: 0 0 45px;
+  margin: 0 0 25px;
 }
 
-@media all and (min-width: 768px) {
-  .popup__input-container_type_edit {
-    margin: 0 0 50px;
-  }
-}

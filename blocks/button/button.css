@@ -8,7 +8,8 @@
   transition: opacity 0.5s linear;
 }
 
-.button:hover {
+.button:hover:not([disabled]) {
   cursor: pointer;
   opacity: 0.6;
 }
+

@@ -8,6 +8,15 @@ const globalPopupAdd = document.querySelector('.popup_type-form_add');
 const globalPopupEdit = document.querySelector('.popup_type-form_edit');
 const globalPopupPicture = document.querySelector('.popup_type-form_picture');
 const globalFormAdd = document.querySelector('form[name="form-add"]');
+const gBody = document.querySelector('.body'); 
+
+const config = {
+  formSelector: '.popup__container',
+  inputSelector: '.input',
+  submitButtonSelector: '.popup__button',
+  buttonDisabledClass: 'button_disabled',
+  inputErrorClass: 'input_failed'
+};
 
 function getInputBlock(){
   return {
@@ -16,9 +25,23 @@ function getInputBlock(){
   }
 }
 
+function clearError(popup){
+  const inputList = popup.querySelectorAll(config.inputSelector);
+  const submitButton = popup.querySelector(config.submitButtonSelector);
+
+  setButtonDisable(submitButton, true, config);
+
+  inputList.forEach((input) => {
+    hideError(popup, input, config)
+  });
+}
+
 // Блок функций, обслуживающих карточку ---------------------------------------
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  popup.removeEventListener('click', clickOverlay);
+  gBody.removeEventListener('keyup', pressEsc); 
+  
 }
 
 function clickOverlay(e) {
@@ -29,9 +52,19 @@ function clickOverlay(e) {
   }
 }
 
+function pressEsc(e) { 
+  if (!e.target.classList.contains('input') && (e.key === 'Escape')) { 
+    const popup = e.target.closest('.popup_opened') || document.querySelector('.popup_opened');
+    closePopup(popup); 
+  } 
+} 
+
 // Блок загрузки форм ---------------------------------------------------------
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  popup.addEventListener('click', clickOverlay);
+  gBody.addEventListener('keyup', pressEsc);
+   
 }
 
 function setInputValue(name = '', descr = '') {
@@ -44,11 +77,13 @@ function setInputValue(name = '', descr = '') {
 function loadFormEdit() {
   openPopup(globalPopupEdit);
   setInputValue(globalTitle.textContent, globalSubtitle.textContent);
+  clearError(globalPopupEdit);
 }
 
 function loadFormAdd() {
   openPopup(globalPopupAdd);
   globalFormAdd.reset();
+  clearError(globalPopupAdd);
 }
 
 function loadFormPicture(e) {
@@ -121,7 +156,3 @@ buttonCloseAdd.addEventListener('click', clickButtonCloseAdd);
 const buttonClosePucture = document.querySelector('.popup__close_type_picture');
 buttonClosePucture.addEventListener('click', clickButtonClosePicture);
 
-const popups = document.querySelectorAll('.popup');
-popups.forEach(popup => {
-  popup.addEventListener('click', clickOverlay);
-});

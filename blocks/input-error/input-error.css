@@ -1,0 +1,13 @@
+.input-error {
+  color: red;
+  font-size: 12px;
+  line-height: 15px;
+  display: block;
+  min-height: 15px;
+}
+
+@media all and (min-width: 768px) {
+  .input-error {
+    margin-bottom: 9px;
+  }
+}

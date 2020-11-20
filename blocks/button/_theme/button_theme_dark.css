@@ -1,8 +1,9 @@
 .button_theme_dark {
   background-color: black;
-  transition: opacity 0.5s linear;
+  color: white;
+  border-color: white;
 }
 
-.button_theme_dark:hover {
+.button_theme_dark:hover:not([disabled]) {
   opacity: 0.8;
 }
