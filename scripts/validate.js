@@ -12,6 +12,14 @@ function hideError(form, input, config) {
   input.classList.remove(config.inputErrorClass);
 }
 
+function clearError(form, config){
+  const inputList = form.querySelectorAll(config.inputSelector);
+
+  inputList.forEach((input) => {
+    hideError(form, input, config)
+  });
+}
+
 function checkInputValidity(form, input, config) {
   if (!input.validity.valid) {
       showError(form, input, config);
@@ -48,8 +56,20 @@ function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
 
   formList.forEach((form) => {
-    setEventListeners(form, config);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      setButtonDisable(e.submitter, true, config);
+
+      if (e.submitter.classList.contains('popup__button_type_add')) {
+        submitFormAdd(form);
+      } else if (e.submitter.classList.contains('popup__button_type_edit')) {
+        submitFormEdit(form);
+      }
+  });
+
+  setEventListeners(form, config);    
   });
 }
 
-enableValidation(config);
+enableValidation(gConfig);

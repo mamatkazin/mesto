@@ -9,8 +9,9 @@ const globalPopupEdit = document.querySelector('.popup_type-form_edit');
 const globalPopupPicture = document.querySelector('.popup_type-form_picture');
 const globalFormAdd = document.querySelector('form[name="form-add"]');
 const gBody = document.querySelector('.body'); 
+const gForms = document.querySelectorAll('.popup'); 
 
-const config = {
+const gConfig = {
   formSelector: '.popup__container',
   inputSelector: '.input',
   submitButtonSelector: '.popup__button',
@@ -18,22 +19,78 @@ const config = {
   inputErrorClass: 'input_failed'
 };
 
+const initialCards = [
+  {
+    name: 'Архыз',
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+  },
+  {
+    name: 'Челябинская область',
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+  },
+  {
+    name: 'Иваново',
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+  },
+  {
+    name: 'Камчатка',
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+  },
+  {
+    name: 'Холмогорский район',
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+  },
+  {
+    name: 'Байкал',
+    link:
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+  },
+];
+
+const templateCard = document.querySelector('#newCard').content;
+
+function clickButtonLike(e) {
+  e.target.classList.toggle('button-like_liked');
+}
+
+function clickButtonDelete(e) {
+  e.target.closest('.card').remove();
+}
+
+function previewImageCard(card, name, link) {
+  const img = card.querySelector('.card__image');
+
+  img.src = link;
+  img.alt = name;
+  img.addEventListener('click', loadFormPicture);
+}
+
+function getCard(name, link) {
+  const newCard = templateCard.cloneNode(true);
+
+  newCard.querySelector('.card__name').textContent = name;
+  newCard.querySelector('.button-like').addEventListener('click', clickButtonLike);
+  newCard.querySelector('.button-delete').addEventListener('click', clickButtonDelete);
+
+  previewImageCard(newCard, name, link);
+
+  return newCard;
+};
+
+initialCards.forEach((card) => {
+  globalList.append(getCard(card.name, card.link));
+});
+
 function getInputBlock(){
   return {
     name: document.querySelector('.popup_opened .popup__input-name'),
     descr: document.querySelector('.popup_opened .popup__input-descr')
   }
-}
-
-function clearError(popup){
-  const inputList = popup.querySelectorAll(config.inputSelector);
-  const submitButton = popup.querySelector(config.submitButtonSelector);
-
-  setButtonDisable(submitButton, true, config);
-
-  inputList.forEach((input) => {
-    hideError(popup, input, config)
-  });
 }
 
 // Блок функций, обслуживающих карточку ---------------------------------------
@@ -77,13 +134,13 @@ function setInputValue(name = '', descr = '') {
 function loadFormEdit() {
   openPopup(globalPopupEdit);
   setInputValue(globalTitle.textContent, globalSubtitle.textContent);
-  clearError(globalPopupEdit);
+  clearError(globalPopupEdit, gConfig);
 }
 
 function loadFormAdd() {
   openPopup(globalPopupAdd);
   globalFormAdd.reset();
-  clearError(globalPopupAdd);
+  clearError(globalPopupAdd, gConfig);
 }
 
 function loadFormPicture(e) {
@@ -100,39 +157,22 @@ function loadFormPicture(e) {
 }
 
 // Блок отправки данных -------------------------------------------------------
-function submitFormAdd(e) {
-  e.preventDefault();
-
+function submitFormAdd(form) {
   const inputBlock = getInputBlock();
 
-  globalList.prepend(createCard(inputBlock.name.value, inputBlock.descr.value));
+  globalList.prepend(getCard(inputBlock.name.value, inputBlock.descr.value));
 
-  closePopup(globalPopupAdd);
+  closePopup(form.closest('.popup'));
 }
 
-function submitFormEdit(e) {
-  e.preventDefault();
-
+function submitFormEdit(form) {
   const inputBlock = getInputBlock();
 
   globalTitle.textContent = inputBlock.name.value;
   globalSubtitle.textContent = inputBlock.descr.value;
 
-  closePopup(globalPopupEdit);
+  closePopup(form.closest('.popup'));
 }
-
-// Блок закрытия форм ---------------------------------------------------------
-function clickButtonCloseEdit() {
-    closePopup(globalPopupEdit);
-};
-
-function clickButtonCloseAdd() {
-  closePopup(globalPopupAdd);
-};
-
-function clickButtonClosePicture() {
-  closePopup(globalPopupPicture);
-};
 
 // Блок инициализации контролов -----------------------------------------------
 const buttonEdit = document.querySelector('.profile__button-edit');
@@ -141,18 +181,16 @@ buttonEdit.addEventListener('click', loadFormEdit);
 const buttonAdd = document.querySelector('.profile__button-add');
 buttonAdd.addEventListener('click', loadFormAdd);
 
-const buttonSubmitAdd = document.querySelector('.popup_type-form_add');
-buttonSubmitAdd.addEventListener('submit', submitFormAdd);
+// const buttonSubmitAdd = document.querySelector('.popup_type-form_add');
+// buttonSubmitAdd.addEventListener('submit', submitFormAdd);
 
-const buttonSubmitEdit = document.querySelector('.popup_type-form_edit');
-buttonSubmitEdit.addEventListener('submit', submitFormEdit);
+// const buttonSubmitEdit = document.querySelector('.popup_type-form_edit');
+// buttonSubmitEdit.addEventListener('submit', submitFormEdit);
 
-const buttonCloseEdit = document.querySelector('.popup__close_type_edit');
-buttonCloseEdit.addEventListener('click', clickButtonCloseEdit);
-
-const buttonCloseAdd = document.querySelector('.popup__close_type_add');
-buttonCloseAdd.addEventListener('click', clickButtonCloseAdd);
-
-const buttonClosePucture = document.querySelector('.popup__close_type_picture');
-buttonClosePucture.addEventListener('click', clickButtonClosePicture);
-
+gForms.forEach(popup => {
+  popup.addEventListener('click', (e) => {
+    if (e.target.classList.contains('popup') || e.target.classList.contains('popup__close')) {
+      closePopup(popup);
+    }
+  });
+});
