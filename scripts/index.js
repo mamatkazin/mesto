@@ -193,4 +193,16 @@ gForms.forEach(popup => {
       closePopup(popup);
     }
   });
+
+  const form = popup.querySelector('.popup__container');
+  
+  if (form !== null) {
+    form.addEventListener('submit', (e) => {
+      if (e.submitter.classList.contains('popup__button_type_add')) {
+        submitFormAdd(form);
+      } else if (e.submitter.classList.contains('popup__button_type_edit')) {
+        submitFormEdit(form);
+      }
+    });
+  }
 });

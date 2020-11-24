@@ -60,13 +60,7 @@ function enableValidation(config) {
       e.preventDefault();
 
       setButtonDisable(e.submitter, true, config);
-
-      if (e.submitter.classList.contains('popup__button_type_add')) {
-        submitFormAdd(form);
-      } else if (e.submitter.classList.contains('popup__button_type_edit')) {
-        submitFormEdit(form);
-      }
-  });
+    });
 
   setEventListeners(form, config);    
   });
