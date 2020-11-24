@@ -57,8 +57,6 @@ function enableValidation(config) {
 
   formList.forEach((form) => {
     form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
       setButtonDisable(e.submitter, true, config);
     });
 

@@ -157,21 +157,25 @@ function loadFormPicture(e) {
 }
 
 // Блок отправки данных -------------------------------------------------------
-function submitFormAdd(form) {
+function submitFormAdd(e) {
+  e.preventDefault();
+
   const inputBlock = getInputBlock();
 
   globalList.prepend(getCard(inputBlock.name.value, inputBlock.descr.value));
 
-  closePopup(form.closest('.popup'));
+  closePopup(globalPopupAdd);
 }
 
-function submitFormEdit(form) {
+function submitFormEdit(e) {
+  e.preventDefault();
+
   const inputBlock = getInputBlock();
 
   globalTitle.textContent = inputBlock.name.value;
   globalSubtitle.textContent = inputBlock.descr.value;
 
-  closePopup(form.closest('.popup'));
+  closePopup(globalPopupEdit);
 }
 
 // Блок инициализации контролов -----------------------------------------------
@@ -181,11 +185,11 @@ buttonEdit.addEventListener('click', loadFormEdit);
 const buttonAdd = document.querySelector('.profile__button-add');
 buttonAdd.addEventListener('click', loadFormAdd);
 
-// const buttonSubmitAdd = document.querySelector('.popup_type-form_add');
-// buttonSubmitAdd.addEventListener('submit', submitFormAdd);
+const buttonSubmitAdd = document.querySelector('.popup_type-form_add');
+buttonSubmitAdd.addEventListener('submit', submitFormAdd);
 
-// const buttonSubmitEdit = document.querySelector('.popup_type-form_edit');
-// buttonSubmitEdit.addEventListener('submit', submitFormEdit);
+const buttonSubmitEdit = document.querySelector('.popup_type-form_edit');
+buttonSubmitEdit.addEventListener('submit', submitFormEdit);
 
 gForms.forEach(popup => {
   popup.addEventListener('click', (e) => {
@@ -193,16 +197,4 @@ gForms.forEach(popup => {
       closePopup(popup);
     }
   });
-
-  const form = popup.querySelector('.popup__container');
-  
-  if (form !== null) {
-    form.addEventListener('submit', (e) => {
-      if (e.submitter.classList.contains('popup__button_type_add')) {
-        submitFormAdd(form);
-      } else if (e.submitter.classList.contains('popup__button_type_edit')) {
-        submitFormEdit(form);
-      }
-    });
-  }
 });
