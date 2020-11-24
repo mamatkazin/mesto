@@ -52,38 +52,39 @@ const initialCards = [
   },
 ];
 
-const templateCard = document.querySelector('#newCard').content;
+// const templateCard = document.querySelector('#newCard').content;
 
-function clickButtonLike(e) {
-  e.target.classList.toggle('button-like_liked');
-}
+// function clickButtonLike(e) {
+//   e.target.classList.toggle('button-like_liked');
+// }
 
-function clickButtonDelete(e) {
-  e.target.closest('.card').remove();
-}
+// function clickButtonDelete(e) {
+//   e.target.closest('.card').remove();
+// }
 
-function previewImageCard(card, name, link) {
-  const img = card.querySelector('.card__image');
+// function previewImageCard(card, name, link) {
+//   const img = card.querySelector('.card__image');
 
-  img.src = link;
-  img.alt = name;
-  img.addEventListener('click', loadFormPicture);
-}
+//   img.src = link;
+//   img.alt = name;
+//   img.addEventListener('click', loadFormPicture);
+// }
 
-function getCard(name, link) {
-  const newCard = templateCard.cloneNode(true);
+// function getCard(name, link) {
+//   const newCard = templateCard.cloneNode(true);
 
-  newCard.querySelector('.card__name').textContent = name;
-  newCard.querySelector('.button-like').addEventListener('click', clickButtonLike);
-  newCard.querySelector('.button-delete').addEventListener('click', clickButtonDelete);
+//   newCard.querySelector('.card__name').textContent = name;
+//   newCard.querySelector('.button-like').addEventListener('click', clickButtonLike);
+//   newCard.querySelector('.button-delete').addEventListener('click', clickButtonDelete);
 
-  previewImageCard(newCard, name, link);
+//   previewImageCard(newCard, name, link);
 
-  return newCard;
-};
+//   return newCard;
+// };
 
 initialCards.forEach((card) => {
-  globalList.append(getCard(card.name, card.link));
+  // globalList.append(getCard(card.name, card.link));
+  globalList.append(new Card(card.name, card.link, '#newCard').toHTML());
 });
 
 function getInputBlock(){
@@ -98,7 +99,6 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
   popup.removeEventListener('click', clickOverlay);
   gBody.removeEventListener('keyup', pressEsc); 
-  
 }
 
 function clickOverlay(e) {
@@ -143,24 +143,26 @@ function loadFormAdd() {
   clearError(globalPopupAdd, gConfig);
 }
 
-function loadFormPicture(e) {
-  openPopup(globalPopupPicture);
+// function loadFormPicture(e) {
+//   openPopup(globalPopupPicture);
   
-  globalImage.src = e.target.src;
-  globalImage.alt = e.target.alt;
+//   globalImage.src = e.target.src;
+//   globalImage.alt = e.target.alt;
 
-  const sourceCaption = e.target
-    .closest('.card')
-    .querySelector('.card__name');
+//   const sourceCaption = e.target
+//     .closest('.card')
+//     .querySelector('.card__name');
   
-  globalCaption.textContent = sourceCaption.textContent;
-}
+//   globalCaption.textContent = sourceCaption.textContent;
+// }
 
 // Блок отправки данных -------------------------------------------------------
 function submitFormAdd(form) {
   const inputBlock = getInputBlock();
 
-  globalList.prepend(getCard(inputBlock.name.value, inputBlock.descr.value));
+  globalList.prepend(new Card(inputBlock.name.value, inputBlock.descr.value, '#newCard').toHTML());
+
+  
 
   closePopup(form.closest('.popup'));
 }
@@ -194,3 +196,7 @@ gForms.forEach(popup => {
     }
   });
 });
+
+
+
+//import_highway_new_2
