@@ -1,22 +1,29 @@
-const globalTitle = document.querySelector('.profile__title');
-const globalSubtitle = document.querySelector('.profile__subtitle');
+//const globalTitle = document.querySelector('.profile__title');
+//const globalSubtitle = document.querySelector('.profile__subtitle');
 const globalImage = document.querySelector('.figure__image');
 const globalCaption = document.querySelector('.figure__caption');
 const globalList = document.querySelector('.elements__list');
 const globalPopupAdd = document.querySelector('.popup_type-form_add');
 const globalPopupEdit = document.querySelector('.popup_type-form_edit');
 const globalPopupPicture = document.querySelector('.popup_type-form_picture');
-const gBody = document.querySelector('.body'); 
+// const gBody = document.querySelector('.body'); 
 const gPopups = document.querySelectorAll('.popup'); 
 const gForms = Array.from(document.querySelectorAll('.popup__container'));
 
-const gConfig = {
+const gConfigValidate = {
   formSelector: '.popup__container',
   inputSelector: '.input',
   submitButtonSelector: '.popup__button',
   buttonDisabledClass: 'button_disabled',
-  inputErrorClass: 'input_failed'
+  inputErrorClass: 'input_failed',
 };
+
+const gConfigUser = {
+  titleSelector: '.profile__title',
+  subtitleSelector: '.profile__subtitle',
+}
+
+const gUser = new UserInfo(gConfigUser);
 
 const initialCards = [
   {
@@ -56,7 +63,7 @@ initialCards.forEach((card) => {
 });
 
 gForms.forEach((form) => {
-  new FormValidator(gConfig, form).enableValidation();   
+  new FormValidator(gConfigValidate, form).enableValidation();   
 });
 
 function getInputBlock(){
@@ -76,29 +83,32 @@ function closePopup(popup) {
   }
 }
 
-function pressEsc(e) { 
-  if (!e.target.classList.contains('input') && (e.key === 'Escape')) { 
-    const popup = e.target.closest('.popup_opened') || document.querySelector('.popup_opened');
-    closePopup(popup); 
-  } 
-} 
+// function pressEsc(e) { 
+//   if (!e.target.classList.contains('input') && (e.key === 'Escape')) { 
+//     const popup = e.target.closest('.popup_opened') || document.querySelector('.popup_opened');
+//     closePopup(popup); 
+//   } 
+// } 
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  gBody.addEventListener('keyup', pressEsc);
-}
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   gBody.addEventListener('keyup', pressEsc);
+// }
 
 function loadFormEdit() {
   openPopup(globalPopupEdit);
 
   const inputBlock = getInputBlock();
 
-  inputBlock.name.value = globalTitle.textContent;
-  inputBlock.descr.value = globalSubtitle.textContent;
+  // inputBlock.name.value = globalTitle.textContent;
+  // inputBlock.descr.value = globalSubtitle.textContent;
+
+  [inputBlock.name.value, inputBlock.descr.value] = gUser.getUserInfo();
 }
 
 function loadFormAdd() {
-  openPopup(globalPopupAdd);
+  // openPopup(globalPopupAdd);
+  (new Popup('.popup_type-form_add')).open();
 }
 
 function loadFormPicture(alt, src) {
@@ -125,8 +135,10 @@ function submitFormEdit(e) {
 
   const inputBlock = getInputBlock();
 
-  globalTitle.textContent = inputBlock.name.value;
-  globalSubtitle.textContent = inputBlock.descr.value;
+  gUser.setUserInfo(inputBlock.name.value, inputBlock.descr.value)
+
+  // globalTitle.textContent = inputBlock.name.value;
+  // globalSubtitle.textContent = inputBlock.descr.value;
 
   closePopup(globalPopupEdit);
 }
