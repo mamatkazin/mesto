@@ -24,11 +24,7 @@ class Card {
   }
 
   #loadFormPicture() {
-    openPopup(globalPopupPicture);
-
-    globalImage.src = this.#link;
-    globalImage.alt = this.#name;
-    globalCaption.textContent = this.#name;
+    loadFormPicture(this.#name, this.#link);
   }
 
   #setEventListener(e) {
