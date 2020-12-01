@@ -68,4 +68,3 @@ export default class FormValidator {
     this._setEventListenerInputs();    
   }
 }
-
