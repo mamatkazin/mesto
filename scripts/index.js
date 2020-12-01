@@ -1,11 +1,14 @@
-const globalTitle = document.querySelector('.profile__title');
-const globalSubtitle = document.querySelector('.profile__subtitle');
-const globalImage = document.querySelector('.figure__image');
-const globalCaption = document.querySelector('.figure__caption');
-const globalList = document.querySelector('.elements__list');
-const globalPopupAdd = document.querySelector('.popup_type-form_add');
-const globalPopupEdit = document.querySelector('.popup_type-form_edit');
-const globalPopupPicture = document.querySelector('.popup_type-form_picture');
+import Card from './Card.js';
+import Validator from './FormValidator.js';
+
+const gTitle = document.querySelector('.profile__title');
+const gSubtitle = document.querySelector('.profile__subtitle');
+const gImage = document.querySelector('.figure__image');
+const gCaption = document.querySelector('.figure__caption');
+const gList = document.querySelector('.elements__list');
+const gPopupAdd = document.querySelector('.popup_type-form_add');
+const gPopupEdit = document.querySelector('.popup_type-form_edit');
+const gPopupPicture = document.querySelector('.popup_type-form_picture');
 const gBody = document.querySelector('.body'); 
 const gPopups = document.querySelectorAll('.popup'); 
 const gForms = Array.from(document.querySelectorAll('.popup__container'));
@@ -52,11 +55,11 @@ const initialCards = [
 ];
 
 initialCards.forEach((card) => {
-  globalList.append(new Card(card.name, card.link, '#newCard').toHTML());
+  gList.append(new Card(card.name, card.link, '#newCard').generateCard(loadFormPicture));
 });
 
 gForms.forEach((form) => {
-  new FormValidator(gConfig, form).enableValidation();   
+  new Validator(gConfig, form).enableValidation();   
 });
 
 function getInputBlock(){
@@ -89,24 +92,24 @@ function openPopup(popup) {
 }
 
 function loadFormEdit() {
-  openPopup(globalPopupEdit);
+  openPopup(gPopupEdit);
 
   const inputBlock = getInputBlock();
 
-  inputBlock.name.value = globalTitle.textContent;
-  inputBlock.descr.value = globalSubtitle.textContent;
+  inputBlock.name.value = gTitle.textContent;
+  inputBlock.descr.value = gSubtitle.textContent;
 }
 
 function loadFormAdd() {
-  openPopup(globalPopupAdd);
+  openPopup(gPopupAdd);
 }
 
 function loadFormPicture(alt, src) {
-  openPopup(globalPopupPicture);
+  openPopup(gPopupPicture);
   
-  globalImage.src = src;
-  globalImage.alt = alt;
-  globalCaption.textContent = alt;
+  gImage.src = src;
+  gImage.alt = alt;
+  gCaption.textContent = alt;
 }
 
 // Блок отправки данных -------------------------------------------------------
@@ -115,9 +118,9 @@ function submitFormAdd(e) {
 
   const inputBlock = getInputBlock();
   
-  globalList.prepend(new Card(inputBlock.name.value, inputBlock.descr.value, '#newCard').toHTML());
+  gList.prepend(new Card(inputBlock.name.value, inputBlock.descr.value, '#newCard').generateCard());
 
-  closePopup(globalPopupAdd);
+  closePopup(gPopupAdd);
 }
 
 function submitFormEdit(e) {
@@ -125,10 +128,10 @@ function submitFormEdit(e) {
 
   const inputBlock = getInputBlock();
 
-  globalTitle.textContent = inputBlock.name.value;
-  globalSubtitle.textContent = inputBlock.descr.value;
+  gTitle.textContent = inputBlock.name.value;
+  gSubtitle.textContent = inputBlock.descr.value;
 
-  closePopup(globalPopupEdit);
+  closePopup(gPopupEdit);
 }
 
 // Блок инициализации контролов -----------------------------------------------
