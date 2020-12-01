@@ -1,5 +1,5 @@
 import Card from './card.js';
-import Validator from './aormValidator.js';
+import Validator from './formValidator.js';
 
 const gTitle = document.querySelector('.profile__title');
 const gSubtitle = document.querySelector('.profile__subtitle');
