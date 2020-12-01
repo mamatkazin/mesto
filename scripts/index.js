@@ -118,7 +118,7 @@ function submitFormAdd(e) {
 
   const inputBlock = getInputBlock();
   
-  gList.prepend(new Card(inputBlock.name.value, inputBlock.descr.value, '#newCard').generateCard());
+  gList.prepend(new Card(inputBlock.name.value, inputBlock.descr.value, '#newCard').generateCard(loadFormPicture));
 
   closePopup(gPopupAdd);
 }
