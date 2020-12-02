@@ -1,19 +1,27 @@
 export default class FormValidator {
+  constructor(config, form) {
+    this._config = config;
+    this._form = form;
+
+    this._inputList = form.querySelectorAll(config.inputSelector);
+    this._submitButton = form.querySelector(config.submitButtonSelector);
+  }
+
   _showError(input) {
     const error = this._form.querySelector(`#${input.name}-error`);
     error.textContent = input.validationMessage;
     input.classList.add(this._config.inputErrorClass);
   }
-  
+
   _hideError(input) {
     const error = this._form.querySelector(`#${input.name}-error`);
-    error.textContent = '';
+    error.textContent = "";
     input.classList.remove(this._config.inputErrorClass);
   }
 
-  _resetForm(){
+  _resetForm() {
     this._inputList.forEach((input) => {
-      this._hideError(input)
+      this._hideError(input);
     });
   }
 
@@ -37,7 +45,7 @@ export default class FormValidator {
 
   _setEventListenerInputs() {
     this._inputList.forEach((input) => {
-      input.addEventListener('input', () => {
+      input.addEventListener("input", () => {
         this._checkInputValidity(input);
         this._setButtonDisable(!this._form.checkValidity());
       });
@@ -45,26 +53,18 @@ export default class FormValidator {
   }
 
   _setEventListenerForm() {
-    this._form.addEventListener('submit', () => {
+    this._form.addEventListener("submit", () => {
       this._setButtonDisable(true);
     });
 
-    this._form.addEventListener('reset', () => {
+    this._form.addEventListener("reset", () => {
       this._resetForm();
     });
   }
 
-  constructor(config, form) {
-    this._config = config;
-    this._form = form;
-
-    this._inputList = form.querySelectorAll(config.inputSelector);
-    this._submitButton = form.querySelector(config.submitButtonSelector);
-  }
-
   enableValidation() {
     this._setButtonDisable(!this._form.checkValidity());
-    this._setEventListenerForm();    
-    this._setEventListenerInputs();    
+    this._setEventListenerForm();
+    this._setEventListenerInputs();
   }
 }
