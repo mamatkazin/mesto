@@ -56,8 +56,12 @@
           class="button button-close popup__close popup__close_type_edit"
         ></button>
         <form name="form-edit" class="popup__container">
-          <h2 class="popup__title popup__title_type_edit">Редактировать профиль</h2>
-          <fieldset class="popup__input-container popup__input-container_type_edit">
+          <h2 class="popup__title popup__title_type_edit">
+            Редактировать профиль
+          </h2>
+          <fieldset
+            class="popup__input-container popup__input-container_type_edit"
+          >
             <input
               type="text"
               class="input input_type_edit popup__input-name"
@@ -65,10 +69,10 @@
               placeholder="Введите имя"
               required
               value=""
-              minlength=2
-              maxlength=40
+              minlength="2"
+              maxlength="40"
             />
-            <span class='input-error' id='name-error'></span>
+            <span class="input-error" id="name-error"></span>
             <input
               type="text"
               class="input input_type_edit popup__input-descr"
@@ -76,12 +80,15 @@
               placeholder="Введите описание"
               required
               value=""
-              minlength=2
-              maxlength=200
+              minlength="2"
+              maxlength="200"
             />
-            <span class='input-error' id='descr-error'></span>
+            <span class="input-error" id="descr-error"></span>
           </fieldset>
-          <button type="submit" class="button popup__button popup__button_type_edit button_theme_light">
+          <button
+            type="submit"
+            class="button popup__button popup__button_type_edit button_theme_light"
+          >
             Сохранить
           </button>
         </form>
@@ -97,7 +104,9 @@
         ></button>
         <form name="form-add" class="popup__container">
           <h2 class="popup__title popup__title_type_add">Новое место</h2>
-          <fieldset class="popup__input-container popup__input-container_type_add">
+          <fieldset
+            class="popup__input-container popup__input-container_type_add"
+          >
             <input
               type="text"
               class="input input_type_add popup__input-name"
@@ -105,10 +114,10 @@
               placeholder="Название"
               required
               value=""
-              minlength=2
-              maxlength=30
+              minlength="2"
+              maxlength="30"
             />
-            <span class='input-error' id='place-error'></span>
+            <span class="input-error" id="place-error"></span>
             <input
               type="url"
               class="input input_type_add popup__input-descr"
@@ -117,9 +126,12 @@
               required
               value=""
             />
-            <span class='input-error' id='url-error'></span>
+            <span class="input-error" id="url-error"></span>
           </fieldset>
-          <button type="submit" class="button popup__button popup__button_type_add button_theme_light">
+          <button
+            type="submit"
+            class="button popup__button popup__button_type_add button_theme_light"
+          >
             Создать
           </button>
         </form>
@@ -134,7 +146,11 @@
           class="button button-close button-close_size_medium popup__close popup__close_type_picture"
         ></button>
         <figure class="figure">
-          <img class="figure__image" src="#" alt="заготовка для модального окна отображения фотографии" />
+          <img
+            class="figure__image"
+            src="#"
+            alt="заготовка для модального окна отображения фотографии"
+          />
           <figcaption class="figure__caption"></figcaption>
         </figure>
       </div>
@@ -145,19 +161,19 @@
         <img class="card__image" src="#" alt="шаблон для новой карточки" />
         <div class="card__row">
           <h2 class="card__name"></h2>
-          <button type="button" aria-label="Поставить лайк." class="button button-like"></button>
+          <button
+            type="button"
+            aria-label="Поставить лайк."
+            class="button button-like"
+          ></button>
         </div>
-        <button type="button" class="button button-delete card__delete" aria-label="Удалить карточку"></button>
+        <button
+          type="button"
+          class="button button-delete card__delete"
+          aria-label="Удалить карточку"
+        ></button>
       </li>
     </template>
-<<<<<<< HEAD
-    <script src="./scripts/Card.js"></script>
-    <script src="./scripts/UserInfo.js"></script>
-    <script src="./scripts/Popup.js"></script>
-    <script src="./scripts/FormValidator.js"></script>
-    <script src="./scripts/index.js"></script>
-=======
     <script type="module" src="./scripts/index.js"></script>
->>>>>>> master
   </body>
 </html>

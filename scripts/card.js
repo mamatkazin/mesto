@@ -1,10 +1,11 @@
 export default class Card {
-  constructor(config, name, link, templateSelector) {
+  constructor(config, name, link, templateSelector, showPopup) {
     this._config = config;
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
-    // this._eventClick = this._setEventListener.bind(this);
+    this._showPopup = showPopup;
+    this._eventClick = this._setEventListener.bind(this);
   }
 
   _clickButtonLike(e) {
@@ -12,13 +13,13 @@ export default class Card {
   }
 
   _clickButtonDelete() {
-    // this._card.removeEventListener("click", this._eventClick);
-    this._card.removeEventListener("click", (e) => this._setEventListener(e));
+    this._card.removeEventListener("click", this._eventClick);
+    // this._card.removeEventListener("click", (e) => this._setEventListener(e));
     this._card.remove();
   }
 
   _loadFormPicture() {
-    this._showPopup(this._name, this._link);
+    this._showPopup(this._link, this._name);
   }
 
   _setEventListener(e) {
@@ -40,8 +41,8 @@ export default class Card {
     return cardElement;
   }
 
-  generateCard(showPopup) {
-    this._showPopup = showPopup;
+  generateCard() {
+    // this._showPopup = showPopup;
     this._card = this._getTemplate();
     const img = this._card.querySelector(this._config.selectorImage);
     const text = this._card.querySelector(this._config.selectorName);
@@ -50,8 +51,8 @@ export default class Card {
     img.alt = this._name;
     text.textContent = this._name;
 
-    // this._card.addEventListener("click", this._eventClick);
-    this._card.addEventListener("click", (e) => this._setEventListener(e));
+    this._card.addEventListener("click", this._eventClick);
+    // this._card.addEventListener("click", (e) => this._setEventListener(e));
 
     return this._card;
   }
