@@ -5,12 +5,6 @@ export default class Popup {
     this._eventClick = this._handleClick.bind(this);
   }
 
-  _configPopup = {
-    classPopup: "popup",
-    classPopupClose: "popup__close",
-    classPopupOpened: "popup_opened",
-  };
-
   _handleEscClose(e) {
     if (!e.target.classList.contains("input") && e.key === "Escape") {
       this.close();
@@ -19,15 +13,11 @@ export default class Popup {
 
   _handleClick(e) {
     if (
-      e.target.classList.contains(this._configPopup.classPopup) ||
-      e.target.classList.contains(this._configPopup.classPopupClose)
+      e.target.classList.contains("popup") ||
+      e.target.classList.contains("popup__close")
     ) {
       this.close();
     }
-  }
-
-  _setEventListeners() {
-    this._popup.addEventListener("click", this._eventClick);
   }
 
   _removeEventListeners() {
@@ -35,14 +25,18 @@ export default class Popup {
     this._popup.removeEventListener("click", this._eventClick);
   }
 
+  setEventListeners() {
+    this._popup.addEventListener("click", this._eventClick);
+  }
+
   open() {
-    this._popup.classList.add(this._configPopup.classPopupOpened);
+    this._popup.classList.add("popup_opened");
     document.addEventListener("keyup", this._eventKeyup); //Узнать накапливается ли addEventListener при многократном вызове open
-    this._setEventListeners();
+    this.setEventListeners();
   }
 
   close() {
-    this._popup.classList.remove(this._configPopup.classPopupOpened);
+    this._popup.classList.remove("popup_opened");
     this._removeEventListeners();
   }
 }

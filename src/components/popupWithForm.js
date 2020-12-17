@@ -18,8 +18,9 @@ export default class PopupWithForm extends Popup {
   }
 
   _handleClickSubmit(e) {
+    e.preventDefault();
     this._getInputValues();
-    this._submit(e, this._src, this._alt);
+    this._submit(this._src, this._alt);
   }
 
   _removeEventListeners() {
@@ -27,9 +28,9 @@ export default class PopupWithForm extends Popup {
     super._removeEventListeners();
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     this._popup.addEventListener("submit", this._eventSubmit);
-    super._setEventListeners();
+    super.setEventListeners();
   }
 
   setInputValues(title, subTitle) {
