@@ -22,4 +22,4 @@
 
 **Проект**
 
-- [Ссылка на проект](https://mamatkazin.github.io/mesto/)
+- [Ссылка на проект](https://mamatkazin.github.io/mesto/dist/)
