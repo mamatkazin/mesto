@@ -5,15 +5,15 @@ export default class Card {
     this._link = link;
     this._templateSelector = templateSelector;
     this._showPopup = showPopup;
-    this._eventClick = this._setEventListener.bind(this);
+    this._setEventListener = this._setEventListener.bind(this);
   }
 
-  _clickButtonLike(e) {
+  _clickLikeButton(e) {
     e.target.classList.toggle(this._config.classLiked);
   }
 
-  _clickButtonDelete() {
-    this._card.removeEventListener("click", this._eventClick);
+  _clickDeleteButton() {
+    this._card.removeEventListener("click", this._setEventListener);
     // this._card.removeEventListener("click", (e) => this._setEventListener(e));
     this._card.remove();
   }
@@ -24,9 +24,9 @@ export default class Card {
 
   _setEventListener(e) {
     if (e.target.classList.contains(this._config.classLike)) {
-      this._clickButtonLike(e);
+      this._clickLikeButton(e);
     } else if (e.target.classList.contains(this._config.classDelete)) {
-      this._clickButtonDelete();
+      this._clickDeleteButton();
     } else if (e.target.classList.contains(this._config.classImage)) {
       this._loadFormPicture();
     }
@@ -51,7 +51,7 @@ export default class Card {
     img.alt = this._name;
     text.textContent = this._name;
 
-    this._card.addEventListener("click", this._eventClick);
+    this._card.addEventListener("click", this._setEventListener);
     // this._card.addEventListener("click", (e) => this._setEventListener(e));
 
     return this._card;

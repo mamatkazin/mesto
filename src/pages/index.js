@@ -27,8 +27,8 @@ const gConfigCard = {
 };
 
 const gConfigUser = {
-  selectorTitle: ".profile__title",
-  selectorSubTitle: ".profile__subtitle",
+  selectorName: ".profile__title",
+  selectorDescr: ".profile__subtitle",
 };
 
 const items = [
@@ -93,7 +93,7 @@ const gPopupEdit = new PopupWithForm(".popup_type-form_edit", submitFormEdit);
 
 function loadFormEdit() {
   const user = gUser.getUserInfo();
-  gPopupEdit.setInputValues(user.title, user.subTitle);
+  gPopupEdit.setInputValues(user);
   gPopupEdit.open();
 }
 
@@ -109,16 +109,22 @@ gForms.forEach((form) => {
   new Validator(gConfigValidator, form).enableValidation();
 });
 
-function submitFormAdd(src, alt) {
-  const card = new Card(gConfigCard, alt, src, "#newCard", loadFormPicture);
+function submitFormAdd(cardData) {
+  const card = new Card(
+    gConfigCard,
+    cardData.place,
+    cardData.url,
+    "#newCard",
+    loadFormPicture
+  );
 
   gSection.addItem(card.generateCard());
 
   gPopupAdd.close();
 }
 
-function submitFormEdit(subTitle, title) {
-  gUser.setUserInfo(title, subTitle);
+function submitFormEdit(user) {
+  gUser.setUserInfo(user.name, user.descr);
 
   gPopupEdit.close();
 }

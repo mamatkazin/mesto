@@ -1,8 +1,8 @@
 export default class Popup {
   constructor(selector) {
     this._popup = document.querySelector(selector);
-    this._eventKeyup = this._handleEscClose.bind(this);
-    this._eventClick = this._handleClick.bind(this);
+    this._handleEscClose = this._handleEscClose.bind(this);
+    this._handleClick = this._handleClick.bind(this);
   }
 
   _handleEscClose(e) {
@@ -21,17 +21,17 @@ export default class Popup {
   }
 
   _removeEventListeners() {
-    document.removeEventListener("keyup", this._eventKeyup);
-    this._popup.removeEventListener("click", this._eventClick);
+    document.removeEventListener("keyup", this._handleEscClose);
+    this._popup.removeEventListener("click", this._handleClick);
   }
 
   setEventListeners() {
-    this._popup.addEventListener("click", this._eventClick);
+    this._popup.addEventListener("click", this._handleClick);
   }
 
   open() {
     this._popup.classList.add("popup_opened");
-    document.addEventListener("keyup", this._eventKeyup); //Узнать накапливается ли addEventListener при многократном вызове open
+    document.addEventListener("keyup", this._handleEscClose); //Узнать накапливается ли addEventListener при многократном вызове open
     this.setEventListeners();
   }
 

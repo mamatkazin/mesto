@@ -5,37 +5,45 @@ export default class PopupWithForm extends Popup {
     super(selector);
 
     this._elementForm = this._popup.querySelector(".popup__container");
-    this._elementName = this._popup.querySelector(".popup__input-name");
-    this._elementUrl = this._popup.querySelector(".popup__input-descr");
+    this._inputs = {};
+
+    this._popup.querySelectorAll(".input").forEach((input) => {
+      this._inputs[input.name] = input;
+    });
 
     this._submit = submitForm;
-    this._eventSubmit = this._handleClickSubmit.bind(this);
+    this._handleClickSubmit = this._handleClickSubmit.bind(this);
   }
 
   _getInputValues() {
-    this._src = this._elementUrl.value;
-    this._alt = this._elementName.value;
+    this._formValues = {};
+
+    Object.keys(this._inputs).forEach((key) => {
+      this._formValues[key] = this._inputs[key].value;
+    });
+
+    return this._formValues;
   }
 
   _handleClickSubmit(e) {
     e.preventDefault();
-    this._getInputValues();
-    this._submit(this._src, this._alt);
+    this._submit(this._getInputValues());
   }
 
   _removeEventListeners() {
-    this._popup.removeEventListener("submit", this._eventSubmit);
+    this._popup.removeEventListener("submit", this._handleClickSubmit);
     super._removeEventListeners();
   }
 
   setEventListeners() {
-    this._popup.addEventListener("submit", this._eventSubmit);
+    this._popup.addEventListener("submit", this._handleClickSubmit);
     super.setEventListeners();
   }
 
-  setInputValues(title, subTitle) {
-    this._elementUrl.value = subTitle;
-    this._elementName.value = title;
+  setInputValues(formValues) {
+    Object.keys(formValues).forEach((key) => {
+      this._inputs[key].value = formValues[key];
+    });
   }
 
   close() {
