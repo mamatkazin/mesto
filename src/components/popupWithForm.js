@@ -13,6 +13,8 @@ export default class PopupWithForm extends Popup {
 
     this._submit = submitForm;
     this._handleClickSubmit = this._handleClickSubmit.bind(this);
+
+    this._inputEvent = new Event("input");
   }
 
   _getInputValues() {
@@ -43,6 +45,7 @@ export default class PopupWithForm extends Popup {
   setInputValues(formValues) {
     Object.keys(formValues).forEach((key) => {
       this._inputs[key].value = formValues[key];
+      this._inputs[key].dispatchEvent(this._inputEvent);
     });
   }
 

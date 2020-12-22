@@ -14,7 +14,6 @@ export default class Card {
 
   _clickDeleteButton() {
     this._card.removeEventListener("click", this._setEventListener);
-    // this._card.removeEventListener("click", (e) => this._setEventListener(e));
     this._card.remove();
   }
 
@@ -42,7 +41,6 @@ export default class Card {
   }
 
   generateCard() {
-    // this._showPopup = showPopup;
     this._card = this._getTemplate();
     const img = this._card.querySelector(this._config.selectorImage);
     const text = this._card.querySelector(this._config.selectorName);
@@ -52,7 +50,6 @@ export default class Card {
     text.textContent = this._name;
 
     this._card.addEventListener("click", this._setEventListener);
-    // this._card.addEventListener("click", (e) => this._setEventListener(e));
 
     return this._card;
   }

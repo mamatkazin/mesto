@@ -11,7 +11,11 @@ export default class Section {
     });
   }
 
-  addItem(card) {
-    this._list.append(card);
+  addItem(card, isAppend) {
+    if (isAppend) {
+      this._list.append(card);
+    } else {
+      this._list.prepend(card);
+    }
   }
 }

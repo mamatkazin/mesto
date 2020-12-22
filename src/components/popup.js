@@ -6,7 +6,7 @@ export default class Popup {
   }
 
   _handleEscClose(e) {
-    if (!e.target.classList.contains("input") && e.key === "Escape") {
+    if (e.key === "Escape") {
       this.close();
     }
   }
@@ -31,7 +31,7 @@ export default class Popup {
 
   open() {
     this._popup.classList.add("popup_opened");
-    document.addEventListener("keyup", this._handleEscClose); //Узнать накапливается ли addEventListener при многократном вызове open
+    document.addEventListener("keyup", this._handleEscClose);
     this.setEventListeners();
   }
 

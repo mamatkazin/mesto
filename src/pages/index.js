@@ -64,6 +64,10 @@ const items = [
   },
 ];
 
+gForms.forEach((form) => {
+  new Validator(gConfigValidator, form).enableValidation();
+});
+
 const gUser = new UserInfo(gConfigUser);
 
 const gSection = new Section(
@@ -78,7 +82,7 @@ const gSection = new Section(
         loadFormPicture
       );
 
-      gSection.addItem(card.generateCard());
+      gSection.addItem(card.generateCard(), true);
     },
   },
 
@@ -105,10 +109,6 @@ function loadFormPicture(alt, src) {
   gPopupImage.open(alt, src);
 }
 
-gForms.forEach((form) => {
-  new Validator(gConfigValidator, form).enableValidation();
-});
-
 function submitFormAdd(cardData) {
   const card = new Card(
     gConfigCard,
@@ -118,7 +118,7 @@ function submitFormAdd(cardData) {
     loadFormPicture
   );
 
-  gSection.addItem(card.generateCard());
+  gSection.addItem(card.generateCard(), false);
 
   gPopupAdd.close();
 }
