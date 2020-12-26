@@ -5,8 +5,6 @@ export default class FormValidator {
 
     this._inputList = form.querySelectorAll(config.inputSelector);
     this._submitButton = form.querySelector(config.submitButtonSelector);
-
-    // this._qwerty = this._qwerty.bind(this);
   }
 
   _showError(input) {
