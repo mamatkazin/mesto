@@ -5,6 +5,7 @@ import UserInfo from "../components/userInfo.js";
 import PopupWithImage from "../components/popupWithImage.js";
 import PopupWithForm from "../components/popupWithForm.js";
 import Section from "../components/section.js";
+import Api from "../components/api.js";
 
 const gForms = Array.from(document.querySelectorAll(".popup__container"));
 
@@ -30,6 +31,16 @@ const gConfigUser = {
   selectorName: ".profile__title",
   selectorDescr: ".profile__subtitle",
 };
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-119/",
+  headers: {
+    authorization: "8f00d36b-aec0-4f68-9304-edc80987adcb",
+    "Content-Type": "application/json",
+  },
+});
+
+console.log(api.getInitialCards());
 
 const items = [
   {
