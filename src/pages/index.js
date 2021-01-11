@@ -7,6 +7,7 @@ import PopupWithForm from "../components/popupWithForm.js";
 import Section from "../components/section.js";
 import Api from "../components/api.js";
 
+
 const gForms = Array.from(document.querySelectorAll(".popup__container"));
 
 const gConfigValidator = {
@@ -30,81 +31,56 @@ const gConfigCard = {
 const gConfigUser = {
   selectorName: ".profile__title",
   selectorDescr: ".profile__subtitle",
+  selectorAvatar: ".profile__image",
 };
 
+const gUser = new UserInfo(gConfigUser);
+
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-119/",
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-19/",
   headers: {
     authorization: "8f00d36b-aec0-4f68-9304-edc80987adcb",
     "Content-Type": "application/json",
   },
 });
 
-console.log(api.getInitialCards());
+api.getUser()
+  .then((data) => {
+    gUser.setUserInfo(data)
+  });
 
-const items = [
-  {
-    name: "Архыз",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+api.getInitialCards()
+  .then((data) => {
+    const gSection = new Section(
+      {
+        data: data,
+        renderer: (item) => {
+          const card = new Card(
+            gConfigCard,
+            item.name,
+            item.link,
+            "#newCard",
+            loadFormPicture
+          );
+
+          gSection.addItem(card.generateCard(), true);
+        },
+      },
+
+      ".elements__list"
+    );
+
+    gSection.renderItems();
+  });
 
 gForms.forEach((form) => {
   new Validator(gConfigValidator, form).enableValidation();
 });
 
-const gUser = new UserInfo(gConfigUser);
-
-const gSection = new Section(
-  {
-    data: items,
-    renderer: (item) => {
-      const card = new Card(
-        gConfigCard,
-        item.name,
-        item.link,
-        "#newCard",
-        loadFormPicture
-      );
-
-      gSection.addItem(card.generateCard(), true);
-    },
-  },
-
-  ".elements__list"
-);
-
-gSection.renderItems();
-
 const gPopupImage = new PopupWithImage(".popup_type-form_picture");
 const gPopupAdd = new PopupWithForm(".popup_type-form_add", submitFormAdd);
 const gPopupEdit = new PopupWithForm(".popup_type-form_edit", submitFormEdit);
+const gPopupAvatar = new PopupWithForm(".popup_type-form_avatar", submitFormAvatar);
 
 function loadFormEdit() {
   const user = gUser.getUserInfo();
@@ -118,6 +94,12 @@ function loadFormAdd() {
 
 function loadFormPicture(alt, src) {
   gPopupImage.open(alt, src);
+}
+
+function loadFormAvatar() {
+  const user = gUser.getUserAvatar();
+  gPopupAvatar.setInputValues(user);
+  gPopupAvatar.open();
 }
 
 function submitFormAdd(cardData) {
@@ -135,9 +117,19 @@ function submitFormAdd(cardData) {
 }
 
 function submitFormEdit(user) {
-  gUser.setUserInfo(user.name, user.descr);
+  api.setUser(user.name, user.descr)
+    .then((data) => {
+      gUser.setUserInfo(data);
+      gPopupEdit.close();
+    });
+}
 
-  gPopupEdit.close();
+function submitFormAvatar(user) {
+  api.setAvatar(user.avatar)
+    .then((data) => {
+      gUser.setUserAvatar(data);
+      gPopupAvatar.close();
+    });
 }
 
 const buttonEdit = document.querySelector(".profile__button-edit");
@@ -145,3 +137,6 @@ buttonEdit.addEventListener("click", loadFormEdit);
 
 const buttonAdd = document.querySelector(".profile__button-add");
 buttonAdd.addEventListener("click", loadFormAdd);
+
+const buttonAvatar = document.querySelector(".profile__button-avatar");
+buttonAvatar.addEventListener("click", loadFormAvatar);

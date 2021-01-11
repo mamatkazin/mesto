@@ -15,5 +15,6 @@
     grid-template-rows: 1fr;
     grid-column-gap: 30px;
     justify-items: start;
+    min-height: 120px;
   }
 }

@@ -1,0 +1,16 @@
+.error {
+  width: 300px;
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  border: 1px solid red;
+  padding: 20px;
+  background-color: #ff0000ad;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.7s, opacity 0.7s linear;
+}
+
+.error:hover {
+  cursor: pointer;
+}

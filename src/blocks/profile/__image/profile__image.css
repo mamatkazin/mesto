@@ -1,13 +1,11 @@
 .profile__image {
-  height: 100%;
-  border-radius: 50%;
+  object-fit: cover;
+  height: inherit;
   margin-left: 1px;
 }
 
 @media all and (min-width: 768px) {
   .profile__image {
-    width: 100%;
     margin-left: 0;
-    height: inherit;
   }
 }

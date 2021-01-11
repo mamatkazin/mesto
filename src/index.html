@@ -19,21 +19,28 @@
       </header>
       <main class="content">
         <section class="profile content__profile">
-          <img
-            src="<%=require('./images/kusto.jpg')%>"
-            alt="Жак-Ив Кусто"
-            class="profile__image"
-          />
+          <button
+            type="button"
+            class="button button_opacity_none profile__button-avatar"
+            aria-label="Изменить аватар пользователя"
+          >
+          <!-- <div class="profile__image">gggg</div> -->
+            <img
+              src="<%=require('./images/kusto.jpg')%>"
+              alt="Аватар пользователя"
+              class="profile__image"
+            />
+          </button>
           <div class="profile__cell">
             <div class="profile__row-title">
-              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <h1 class="profile__title">Наименование пользователя</h1>
               <button
                 type="button"
                 class="button profile__button-edit"
                 aria-label="Редактировать профиль"
               ></button>
             </div>
-            <p class="profile__subtitle">Исследователь океана</p>
+            <p class="profile__subtitle">Описание пользователя</p>
           </div>
           <button
             type="button"
@@ -229,5 +236,10 @@
         ></button>
       </li>
     </template>
+
+    <section class="error">
+      <h2 class="error__title">fgfdgndghngh</h2>
+      <p class="error__text">kljnlkjnfkjg ljnfglkfjdgfj lfdjgndkjfgn ljfdglkjnfjg</p>
+    </section>
   </body>
 </html>
