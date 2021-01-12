@@ -1,0 +1,16 @@
+.popup__form-confirm {
+  width: 74%;
+  max-width: 360px;
+  padding: 26px 22px;
+  background: #ffffff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+@media all and (min-width: 768px) {
+  .popup__form-confirm {
+    padding: 34px 36px 37px;
+    max-width: 358px;
+    max-height: 330px;
+  }
+}

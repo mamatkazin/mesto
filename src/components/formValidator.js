@@ -36,9 +36,13 @@ export default class FormValidator {
   _setButtonDisable(disabled) {
     if (disabled) {
       this._submitButton.classList.add(this._config.buttonDisabledClass);
+      this._submitButton.classList.remove(this._config.buttonThemeDarkClass);
+      this._submitButton.classList.add(this._config.buttonThemeLightClass);
       this._submitButton.disabled = true;
     } else {
       this._submitButton.classList.remove(this._config.buttonDisabledClass);
+      this._submitButton.classList.remove(this._config.buttonThemeLightClass);
+      this._submitButton.classList.add(this._config.buttonThemeDarkClass);
       this._submitButton.disabled = false;
     }
   }

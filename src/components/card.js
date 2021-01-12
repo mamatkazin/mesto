@@ -1,24 +1,44 @@
 export default class Card {
-  constructor(config, name, link, templateSelector, showPopup) {
+  constructor(config, dataSource, templateSelector, showPopupPicture, showPopupConfirm, userId, api) {
     this._config = config;
-    this._name = name;
-    this._link = link;
+    this._dataSource = dataSource;
     this._templateSelector = templateSelector;
-    this._showPopup = showPopup;
+    this._showPopupPicture = showPopupPicture;
+    this._showPopupConfirm = showPopupConfirm;
+    this._userId = userId;
+    this._api = api;
     this._setEventListener = this._setEventListener.bind(this);
   }
 
   _clickLikeButton(e) {
-    e.target.classList.toggle(this._config.classLiked);
+    const likeCount = this._card.querySelector(this._config.selectorLikeCount);
+
+    if (e.target.classList.contains(this._config.classLiked)) {
+      this._api.deleteLike(this._dataSource._id)
+        .then((data) => {
+          e.target.classList.remove(this._config.classLiked);
+          likeCount.textContent = data.likes.length;
+        });
+    } else {
+      this._api.setLike(this._dataSource._id)
+        .then((data) => {
+          e.target.classList.add(this._config.classLiked);
+          likeCount.textContent = data.likes.length;
+        });
+    }
   }
 
   _clickDeleteButton() {
-    this._card.removeEventListener("click", this._setEventListener);
-    this._card.remove();
+    this._showPopupConfirm(this, this._dataSource._id);
+    // this._api.deleteCard(this._dataSource._id)
+    //   .then(() => {
+    //     this._card.removeEventListener("click", this._setEventListener);
+    //     this._card.remove();
+    //   });
   }
 
   _loadFormPicture() {
-    this._showPopup(this._link, this._name);
+    this._showPopupPicture(this._dataSource.link, this._dataSource.name);
   }
 
   _setEventListener(e) {
@@ -44,13 +64,32 @@ export default class Card {
     this._card = this._getTemplate();
     const img = this._card.querySelector(this._config.selectorImage);
     const text = this._card.querySelector(this._config.selectorName);
+    const likeCount = this._card.querySelector(this._config.selectorLikeCount);
 
-    img.src = this._link;
-    img.alt = this._name;
-    text.textContent = this._name;
+    if (this._dataSource.owner._id !== this._userId) {
+      const recycle = this._card.querySelector(this._config.selectorRecycle);
+      recycle.remove();
+    }
+
+    img.src = this._dataSource.link;
+    img.alt = this._dataSource.name;
+
+    text.textContent = this._dataSource.name;
+    likeCount.textContent = this._dataSource.likes.length;
+
+    const userId = this._dataSource.likes.findIndex(item => item._id === this._userId);
+
+    if (userId != -1) {
+      this._card.querySelector(this._config.selectorLike).classList.add(this._config.classLiked);
+    }
 
     this._card.addEventListener("click", this._setEventListener);
 
     return this._card;
+  }
+
+  deleteCard() {
+    this._card.removeEventListener("click", this._setEventListener);
+    this._card.remove();
   }
 }

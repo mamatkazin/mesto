@@ -14,7 +14,7 @@ export default class UserInfo {
 
   getUserAvatar() {
     return {
-      avatar: this._elemAvatar.textContent,
+      avatar: this._elemAvatar.src,
     };
   }
 
@@ -23,6 +23,7 @@ export default class UserInfo {
     this._elemDescr.textContent = user.about;
     this._elemAvatar.src = user.avatar;
     this._elemAvatar.alt = user.name;
+    this.id = user._id;
   }
 
   setUserAvatar(user) {
