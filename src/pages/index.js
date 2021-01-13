@@ -157,7 +157,6 @@ function submitFormConfirm(elementCard, cardId) {
   api.deleteCard(cardId);
   elementCard.deleteCard();
   gPopupConfirm.close();
-
 }
 
 const buttonEdit = document.querySelector(".profile__button-edit");
