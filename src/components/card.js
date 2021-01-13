@@ -1,5 +1,7 @@
+import ErrorApp from "../components/error.js";
+
 export default class Card {
-  constructor(config, dataSource, templateSelector, showPopupPicture, showPopupConfirm, userId, api) {
+  constructor(config, dataSource, templateSelector, showPopupPicture, showPopupConfirm, userId, api, error) {
     this._config = config;
     this._dataSource = dataSource;
     this._templateSelector = templateSelector;
@@ -8,6 +10,8 @@ export default class Card {
     this._userId = userId;
     this._api = api;
     this._setEventListener = this._setEventListener.bind(this);
+
+    this._error = error;
   }
 
   _clickLikeButton(e) {
@@ -16,25 +20,30 @@ export default class Card {
     if (e.target.classList.contains(this._config.classLiked)) {
       this._api.deleteLike(this._dataSource._id)
         .then((data) => {
-          e.target.classList.remove(this._config.classLiked);
-          likeCount.textContent = data.likes.length;
+            e.target.classList.remove(this._config.classLiked);
+            likeCount.textContent = data.likes.length;
+          })
+        .catch((err) => {
+          err.json().then((data) => {
+            this._error.open(err.status, data.message)
+          });
         });
     } else {
       this._api.setLike(this._dataSource._id)
         .then((data) => {
           e.target.classList.add(this._config.classLiked);
           likeCount.textContent = data.likes.length;
+        })
+        .catch((err) => {
+          err.json().then((data) => {
+            this._error.open(err.status, data.message)
+          });
         });
     }
   }
 
   _clickDeleteButton() {
     this._showPopupConfirm(this, this._dataSource._id);
-    // this._api.deleteCard(this._dataSource._id)
-    //   .then(() => {
-    //     this._card.removeEventListener("click", this._setEventListener);
-    //     this._card.remove();
-    //   });
   }
 
   _loadFormPicture() {

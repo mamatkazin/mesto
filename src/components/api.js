@@ -1,49 +1,28 @@
-import ErrorApp from "../components/error.js";
-
 export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
 
-    this._error = new ErrorApp();
+    // this.json = null;
+  }
 
-    this.json = null;
+  _getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(res);
+    }
+    return res.json();
   }
 
   getInitialCards() {
     return fetch(this._baseUrl + "cards", {
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(res);
-      })
-      .catch((err) => {
-        err.json().then((data) => {
-          this._error.open(err.status, data.message)
-        });
-      });
+    }).then(this._getResponseData);
   }
 
   getUser() {
     return fetch(this._baseUrl + "users/me", {
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(res);
-      })
-      .catch((err) => {
-        err.json().then((data) => {
-          this._error.open(err.status, data.message)
-        });
-      });
+    }).then(this._getResponseData);
   }
 
   setUser(name, about) {
@@ -54,19 +33,7 @@ export default class Api {
         name: name,
         about: about,
       })
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(res);
-      })
-      .catch((err) => {
-        err.json().then((data) => {
-          this._error.open(err.status, data.message)
-        });
-      });
+    }).then(this._getResponseData);
   }
 
   setAvatar(avatar) {
@@ -76,19 +43,7 @@ export default class Api {
       body: JSON.stringify({
         avatar: avatar,
       })
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(res);
-      })
-      .catch((err) => {
-        err.json().then((data) => {
-          this._error.open(err.status, data.message)
-        });
-      });
+    }).then(this._getResponseData);
   }
 
   newCard(name, link) {
@@ -99,75 +54,27 @@ export default class Api {
         name: name,
         link: link,
       })
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(res);
-      })
-      .catch((err) => {
-        err.json().then((data) => {
-          this._error.open(err.status, data.message)
-        });
-      });
+    }).then(this._getResponseData);
   }
 
   deleteCard(cardId) {
     return fetch(this._baseUrl + "cards/" + cardId, {
       method: 'DELETE',
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(res);
-      })
-      .catch((err) => {
-        err.json().then((data) => {
-          this._error.open(err.status, data.message)
-        });
-      });
+    }).then(this._getResponseData);
   }
 
   setLike(cardId) {
     return fetch(this._baseUrl + "cards/likes/" + cardId, {
       method: 'PUT',
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(res);
-      })
-      .catch((err) => {
-        err.json().then((data) => {
-          this._error.open(err.status, data.message)
-        });
-      });
+    }).then(this._getResponseData)
   }
 
   deleteLike(cardId) {
     return fetch(this._baseUrl + "cards/likes/" + cardId, {
       method: 'DELETE',
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(res);
-      })
-      .catch((err) => {
-        err.json().then((data) => {
-          this._error.open(err.status, data.message)
-        });
-      });
+    }).then(this._getResponseData);
   }
 }

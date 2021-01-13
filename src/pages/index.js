@@ -7,10 +7,7 @@ import PopupWithForm from "../components/popupWithForm.js";
 import PopupWithButton from "../components/popupWithButton.js";
 import Section from "../components/section.js";
 import Api from "../components/api.js";
-
-let gSection;
-
-const gForms = Array.from(document.querySelectorAll(".popup__container"));
+import ErrorApp from "../components/error.js";
 
 const gConfigValidator = {
   formSelector: ".popup__container",
@@ -41,6 +38,26 @@ const gConfigUser = {
   selectorAvatar: ".profile__image",
 };
 
+function addCard(api, section, item, userId, isAppend, err) {
+  const card = new Card(
+    gConfigCard,
+    item,
+    "#newCard",
+    loadFormPicture,
+    loadFormConfirm,
+    userId,
+    api,
+    err,
+  );
+
+  section.addItem(card.generateCard(), isAppend);
+}
+
+
+let gSection;
+
+const gError = new ErrorApp();
+const gForms = Array.from(document.querySelectorAll(".popup__container"));
 const gUser = new UserInfo(gConfigUser);
 
 const api = new Api({
@@ -51,6 +68,7 @@ const api = new Api({
   },
 });
 
+//Promise.all
 api.getUser()
   .then((data) => {
     gUser.setUserInfo(data)
@@ -61,19 +79,7 @@ api.getUser()
         gSection = new Section(
           {
             data: data,
-            renderer: (item) => {
-              const card = new Card(
-                gConfigCard,
-                item,
-                "#newCard",
-                loadFormPicture,
-                loadFormConfirm,
-                gUser.id,
-                api,
-              );
-
-              gSection.addItem(card.generateCard(), true);
-            },
+            renderer: (item) => addCard(api, gSection, item, gUser.id, true, gError),
           },
 
           ".elements__list"
@@ -82,17 +88,21 @@ api.getUser()
         gSection.renderItems();
       });
   })
+  .catch((err) => {
+    err.json().then((data) => {
+      gError.open(err.status, data.message)
+    });
+  });
 
 gForms.forEach((form) => {
   new Validator(gConfigValidator, form).enableValidation();
 });
 
 const gPopupImage = new PopupWithImage(".popup_type-form_picture");
-const gPopupAdd = new PopupWithForm(".popup_type-form_add", submitFormAdd);
-const gPopupEdit = new PopupWithForm(".popup_type-form_edit", submitFormEdit);
-const gPopupAvatar = new PopupWithForm(".popup_type-form_avatar", submitFormAvatar);
+const gPopupAdd = new PopupWithForm(".popup_type-form_add", "Создание...", submitFormAdd);
+const gPopupEdit = new PopupWithForm(".popup_type-form_edit", "Сохранение...", submitFormEdit);
+const gPopupAvatar = new PopupWithForm(".popup_type-form_avatar", "Сохранение...", submitFormAvatar);
 const gPopupConfirm = new PopupWithButton(".popup_type-form_confirm", submitFormConfirm);
-
 
 function loadFormEdit() {
   const user = gUser.getUserInfo();
@@ -121,19 +131,16 @@ function loadFormAvatar() {
 function submitFormAdd(cardData) {
   api.newCard(cardData.place, cardData.url)
     .then((data) => {
-      const card = new Card(
-        gConfigCard,
-        data,
-        "#newCard",
-        loadFormPicture,
-        loadFormConfirm,
-        gUser.id,
-        api,
-      );
-
-      gSection.addItem(card.generateCard(), false);
-
+      addCard(api, gSection, data, gUser.id, false, gError);
       gPopupAdd.close();
+    })
+    .catch((err) => {
+      err.json().then((data) => {
+        gError.open(err.status, data.message)
+      });
+    })
+    .finally(() => {
+      gPopupConfirm.recovery("Создать");
     });
 }
 
@@ -142,6 +149,14 @@ function submitFormEdit(user) {
     .then((data) => {
       gUser.setUserInfo(data);
       gPopupEdit.close();
+    })
+    .catch((err) => {
+      err.json().then((data) => {
+        gError.open(err.status, data.message)
+      });
+    })
+    .finally(() => {
+      gPopupEdit.recovery("Сохранить");
     });
 }
 
@@ -150,13 +165,31 @@ function submitFormAvatar(user) {
     .then((data) => {
       gUser.setUserAvatar(data);
       gPopupAvatar.close();
+    })
+    .catch((err) => {
+      err.json().then((data) => {
+        gError.open(err.status, data.message)
+      });
+    })
+    .finally(() => {
+      gPopupEdit.recovery("Сохранить");
     });
 }
 
 function submitFormConfirm(elementCard, cardId) {
-  api.deleteCard(cardId);
-  elementCard.deleteCard();
-  gPopupConfirm.close();
+  api.deleteCard(cardId)
+    .then(() => {
+      elementCard.deleteCard();
+      gPopupConfirm.close();
+    })
+    .catch((err) => {
+      err.json().then((data) => {
+        gError.open(err.status, data.message)
+      });
+    })
+    .finally(() => {
+      gPopupConfirm.recovery("Да");
+    });
 }
 
 const buttonEdit = document.querySelector(".profile__button-edit");
