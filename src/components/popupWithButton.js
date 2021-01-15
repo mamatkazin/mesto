@@ -1,9 +1,10 @@
 import Popup from "./popup.js";
 
 export default class PopupWithButton extends Popup {
-  constructor(selector, submitForm) {
+  constructor(selector, textButton, submitForm) {
     super(selector);
 
+    this._textButton = textButton;
     this._elementButton = this._popup.querySelector(".popup__button");
 
     this._submit = submitForm;
@@ -13,7 +14,7 @@ export default class PopupWithButton extends Popup {
   _handleClickSubmit(e) {
     e.preventDefault();
 
-    this._elementButton.textContent = "Удаление...";
+    this._elementButton.textContent = this._textButton;
 
     this._submit(this._elementCard, this._cardId);
   }
@@ -29,11 +30,14 @@ export default class PopupWithButton extends Popup {
   }
 
   open(elementCard, cardId) {
-    this._elementButton.textContent = "Да";
     this._elementCard = elementCard;
     this._cardId = cardId;
 
     super.open();
+  }
+
+  recovery(textButton) {
+    this._elementButton.textContent = textButton;
   }
 
 }

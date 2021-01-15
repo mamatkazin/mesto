@@ -6,16 +6,26 @@ export default class ErrorApp {
   }
 
   _handleClick = (e) => {
-    if (e.target.classList.contains("error")) {
+    if (e.currentTarget.classList.contains("error")) {
       this.close();
     }
   }
 
-  open(title, text) {
+  _open(title, text) {
     this._popup.classList.add("error_opened");
     this._title.textContent = title;
     this._text.textContent = text;
     this._popup.addEventListener("click", this._handleClick);
+  }
+
+  open(err) {
+    try {
+      err.json().then((data) => {
+        this._open(err.status, data.message)
+      });
+    } catch (error) {
+      this._open("Непредвиденная ошибка", err)
+    }
   }
 
   close() {

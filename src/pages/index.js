@@ -68,30 +68,26 @@ const api = new Api({
   },
 });
 
-//Promise.all
-api.getUser()
+Promise.all([
+  api.getUser(),
+  api.getInitialCards()
+])
   .then((data) => {
-    gUser.setUserInfo(data)
-  })
-  .then(() => {
-    api.getInitialCards()
-      .then((data) => {
-        gSection = new Section(
-          {
-            data: data,
-            renderer: (item) => addCard(api, gSection, item, gUser.id, true, gError),
-          },
+    gUser.setUserInfo(data[0]);
 
-          ".elements__list"
-        );
+    gSection = new Section(
+      {
+        data: data[1],
+        renderer: (item) => addCard(api, gSection, item, gUser.id, true, gError),
+      },
 
-        gSection.renderItems();
-      });
+      ".elements__list"
+    );
+
+    gSection.renderItems();
   })
   .catch((err) => {
-    err.json().then((data) => {
-      gError.open(err.status, data.message)
-    });
+    gError.open(err);
   });
 
 gForms.forEach((form) => {
@@ -102,7 +98,7 @@ const gPopupImage = new PopupWithImage(".popup_type-form_picture");
 const gPopupAdd = new PopupWithForm(".popup_type-form_add", "Создание...", submitFormAdd);
 const gPopupEdit = new PopupWithForm(".popup_type-form_edit", "Сохранение...", submitFormEdit);
 const gPopupAvatar = new PopupWithForm(".popup_type-form_avatar", "Сохранение...", submitFormAvatar);
-const gPopupConfirm = new PopupWithButton(".popup_type-form_confirm", submitFormConfirm);
+const gPopupConfirm = new PopupWithButton(".popup_type-form_confirm", "Удаление...",submitFormConfirm);
 
 function loadFormEdit() {
   const user = gUser.getUserInfo();
@@ -135,12 +131,10 @@ function submitFormAdd(cardData) {
       gPopupAdd.close();
     })
     .catch((err) => {
-      err.json().then((data) => {
-        gError.open(err.status, data.message)
-      });
+      gError.open(err);
     })
     .finally(() => {
-      gPopupConfirm.recovery("Создать");
+      gPopupAdd.recovery("Создать");
     });
 }
 
@@ -151,9 +145,7 @@ function submitFormEdit(user) {
       gPopupEdit.close();
     })
     .catch((err) => {
-      err.json().then((data) => {
-        gError.open(err.status, data.message)
-      });
+      gError.open(err);
     })
     .finally(() => {
       gPopupEdit.recovery("Сохранить");
@@ -167,12 +159,10 @@ function submitFormAvatar(user) {
       gPopupAvatar.close();
     })
     .catch((err) => {
-      err.json().then((data) => {
-        gError.open(err.status, data.message)
-      });
+      gError.open(err);
     })
     .finally(() => {
-      gPopupEdit.recovery("Сохранить");
+      gPopupAvatar.recovery("Сохранить");
     });
 }
 
@@ -183,9 +173,7 @@ function submitFormConfirm(elementCard, cardId) {
       gPopupConfirm.close();
     })
     .catch((err) => {
-      err.json().then((data) => {
-        gError.open(err.status, data.message)
-      });
+      gError.open(err);
     })
     .finally(() => {
       gPopupConfirm.recovery("Да");

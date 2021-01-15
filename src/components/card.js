@@ -24,9 +24,7 @@ export default class Card {
             likeCount.textContent = data.likes.length;
           })
         .catch((err) => {
-          err.json().then((data) => {
-            this._error.open(err.status, data.message)
-          });
+          this._error.open(err);
         });
     } else {
       this._api.setLike(this._dataSource._id)
@@ -35,9 +33,7 @@ export default class Card {
           likeCount.textContent = data.likes.length;
         })
         .catch((err) => {
-          err.json().then((data) => {
-            this._error.open(err.status, data.message)
-          });
+          this._error.open(err);
         });
     }
   }
